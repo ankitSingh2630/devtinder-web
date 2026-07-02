@@ -21,6 +21,11 @@
 - Login and see if your data coming properly in store 
 - Navbar is update as user is login 
 - Refactor our code to add constant file + create a  folder Components 
+- You should not acess the other router without login
+- if token is not present , redirect to the login
+- Logout 
+- Profile
+
 
 
 Body
