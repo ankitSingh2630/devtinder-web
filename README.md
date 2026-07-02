@@ -24,7 +24,8 @@
 - You should not acess the other router without login
 - if token is not present , redirect to the login
 - Logout Feature
-- Profile
+- Get the feed and add the feed in redux store
+- Build the user card on feed
 
 
 
