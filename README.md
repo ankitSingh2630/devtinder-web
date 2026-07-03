@@ -26,6 +26,8 @@
 - Logout Feature
 - Get the feed and add the feed in redux store
 - Build the user card on feed
+- Edit Profile Feature
+- Show toast message feature on save profile details
 
 
 
