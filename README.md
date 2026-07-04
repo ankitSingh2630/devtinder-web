@@ -31,6 +31,7 @@
 - See all my connections 
 - Feature- Accept/Reject connection request
 - Send/Ignone the userCadrs from the feed 
+- Signup new User
 
 
 
