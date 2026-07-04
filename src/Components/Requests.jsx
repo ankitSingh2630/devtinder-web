@@ -54,8 +54,8 @@ const Requests = () => {
                 <p>{about}</p>   
                 </div>
                 <div className='flex justify-center my-8'>
-                    <button className="btn btn-primary mx-2">Interested</button>
-                    <button className="btn btn-secondary mx-2">Ignored</button>
+                    <button className="btn btn-primary mx-2">Accepted</button>
+                    <button className="btn btn-secondary mx-2">Rejected</button>
                 </div>
                 
             </div>

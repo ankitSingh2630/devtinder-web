@@ -29,6 +29,8 @@
 - Edit Profile Feature
 - Show toast message feature on save profile details
 - See all my connections 
+- Feature- Accept/Reject connection request
+- Send/Ignone the userCadrs from the feed 
 
 
 
