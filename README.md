@@ -41,3 +41,55 @@ Body
     Route = / > Feed
     Route= /login > Login
     Route = /profile > Profile
+
+
+# Deployment
+- Signup on AWS
+- Launch Instance
+- chmod 400 "devtinder.pem"
+- ssh -i "devtinder.pem" ubuntu@ec2-54-167-254-238.compute-1.amazonaws com
+- inSTALL Node 
+- git clone 
+Frontend -
+    - npm install 
+    - npm run build
+    - sudo apt update
+    - sudo apt install nginx
+    - sudo systemctl start nginx
+    - sudo systemctl enable nginx
+    - copy code from dist(build folder) to /var/www/html/
+    - sudo scp -r  /dist/* /var/www/html/
+
+Backend-
+    - npm install
+    - npm install pm2 -g
+    - pm2 start npm --start
+    or
+    - pm2 start npm --name "devtinder-backend" -- start
+    
+    - pm2 logs
+    - pm2 list , pm2 flush <name> 
+    - pm2 stop <name>, pm2 delete <name>
+# Nginx configuration 
+    config ngnix - proxy pass 3000 == /api
+    -sudo nano /etc/nginx/sites-available/default
+
+    # Proxy API requests to Node.js
+    server_name _; add server name
+    location /api/ {
+        proxy_pass http://localhost:3000;
+
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+    - sudo system restart neginx
+
+# Update base URL
+    - upadate base_url to "/api" in frontend
+    - git pull in ubuntu server
+    - npm run build
+    again deployed
+    - sudo scp -r  /dist/* /var/www/html/
