@@ -1,58 +1,69 @@
-import axios from 'axios';
-import React, { useEffect } from 'react'
-import { BASE_URL } from '../utils/constants';
-import { useDispatch, useSelector } from 'react-redux';
-import { addConnection } from '../utils/connectionSlice';
+import axios from "axios";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { BASE_URL } from "../utils/constants";
+import { addConnection } from "../utils/connectionSlice";
 
 const Connections = () => {
-    const dispatch=useDispatch();
-
-    const connection= useSelector((store)=>store.connection)
-    const fetchConnections=async()=>{
-        try {
-            if(connection)return;
-            const res=await axios.get(BASE_URL+ "/user/connections",{withCredentials:true})
-
-            // console.log(res?.data?.data)
-            dispatch(addConnection(res?.data?.data))
-            
-        } catch (error) {
-            console.log(error);
-        }
+  const dispatch = useDispatch();
+  const connection = useSelector((store) => store.connection);
+  const fetchConnections = async () => {
+    try {
+      if (connection) return;
+      const res = await axios.get(BASE_URL + "/user/connections", {
+        withCredentials: true,
+      });
+      dispatch(addConnection(res?.data?.data));
+    } catch (error) {
+      console.log(error);
     }
-    useEffect(()=>{
-        fetchConnections()
-    },[])
-    if(!connection)return;
-    if(connection.length == 0){
-        return <div>No Connection found</div>
-    }
+  };
+  useEffect(() => {
+    fetchConnections();
+  }, []);
+  if (!connection) return null;
   return (
-    <div className='text-center my-10'>
-       <div>
-         <h1 className='text-4xl text-white font-bold'>Connections</h1>
-        {connection.map((conn)=>{
-            const{_id,firstName,lastName,age,gender,photoUrl,about}=conn;
-            return(
-            <div className='flex m-4 p-4 bg-base-300 w-1/2 mx-auto' key={_id}>
-                <div>
-                    <img alt='photo' 
-                    className='w-20 h-25 rounded-full'
-                     src={photoUrl}/>
-
-                </div>
-                <div className='text-left mx-4'>
-                 <h2 className='text-xl font-bold'>{firstName +" "+lastName}</h2>
-                 {age && gender&& <p>{age +", "+gender}</p>}
-                <p>{about}</p>   
-                </div>
-                
-            </div>
-        )
-        })}
-       </div>
-    </div>
-  )
-}
-
-export default Connections
+    <section className="page">
+      <div className="page-heading">
+        <p className="eyebrow">Your network</p>
+        <h1>Connections</h1>
+        <p>Developers you’ve mutually connected with.</p>
+      </div>
+      {connection.length === 0 ? (
+        <div className="empty-state glass-card">
+          <h2>No connections yet</h2>
+          <p className="muted">
+            Start discovering developers to make your first connection.
+          </p>
+        </div>
+      ) : (
+        <div className="people-list">
+          {connection.map((conn) => (
+            <article className="glass-card person-row" key={conn._id}>
+              {conn.photoUrl ? (
+                <img className="avatar" src={conn.photoUrl} alt="" />
+              ) : (
+                <span className="avatar avatar-fallback">
+                  {conn.firstName?.[0]}
+                </span>
+              )}
+              <div className="person-info">
+                <h2>
+                  {conn.firstName} {conn.lastName}
+                </h2>
+                <p>
+                  {conn.age && conn.gender
+                    ? `${conn.age}, ${conn.gender}`
+                    : "Developer"}
+                </p>
+                <p>{conn.about}</p>
+              </div>
+              <span className="muted">›</span>
+            </article>
+          ))}
+        </div>
+      )}
+    </section>
+  );
+};
+export default Connections;

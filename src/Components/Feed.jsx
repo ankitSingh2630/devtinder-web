@@ -1,43 +1,45 @@
-import axios from 'axios';
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { BASE_URL } from '../utils/constants';
-import { addFeed } from '../utils/feedSlice';
-import UserCard from './UserCard';
-
+import axios from "axios";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { BASE_URL } from "../utils/constants";
+import { addFeed } from "../utils/feedSlice";
+import UserCard from "./UserCard";
 
 const Feed = () => {
-  const feed=useSelector((store)=>store.feed)
-  const dispatch=useDispatch();
-  const getFeed = async ()=>{
+  const feed = useSelector((store) => store.feed);
+  const dispatch = useDispatch();
+  const getFeed = async () => {
     try {
-      if(feed) return;
-      const res =await axios.get(BASE_URL+"/feed",{withCredentials:true});
-      dispatch(addFeed(res?.data))
-      
+      if (feed) return;
+      const res = await axios.get(BASE_URL + "/feed", {
+        withCredentials: true,
+      });
+      dispatch(addFeed(res?.data));
     } catch (error) {
-      console.log(error.response)
-    } 
-  }
-     useEffect(()=>{
-      getFeed()
-    },[])
-
-    if(!feed) return;
-
-    if(feed.length<=0){
-      return <div className='text-center my-10'>
-        <h1 className='text-3xl text-white font-bold'>No new User Found .... </h1>
-      </div>
+      console.log(error.response);
     }
+  };
+  useEffect(() => {
+    getFeed();
+  }, []);
+  if (!feed) return null;
+  if (feed.length <= 0)
+    return (
+      <section className="empty-state">
+        <p className="eyebrow">Discover</p>
+        <h2>You’re all caught up!</h2>
+        <p className="muted">Check back later for more developers.</p>
+      </section>
+    );
   return (
-    feed &&(
-      <div className='flex justify-center my-10'>
-      <UserCard user={feed[0]} />
-    </div>
-    )
-    
-  )
-}
-
-export default Feed
+    <section className="feed-wrap" aria-label="Discover developers">
+      <div className="discover-card-frame">
+        <p className="eyebrow" style={{ textAlign: "center" }}>
+          Discover developers
+        </p>
+        <UserCard user={feed[0]} />
+      </div>
+    </section>
+  );
+};
+export default Feed;

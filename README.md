@@ -92,4 +92,11 @@ Backend-
     - git pull in ubuntu server
     - npm run build
     again deployed
-    - sudo scp -r  /dist/* /var/www/html/
+    - sudo scp -r  dis t/* /var/www/html/
+
+# Adding custom domain
+- Purchase domain name from _
+- Signup on cloudflare & add a new domain
+- change the name server & point it to cloudflare 
+- add DNS Record 
+Enable SSL for website 

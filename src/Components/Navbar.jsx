@@ -1,87 +1,67 @@
-import axios from 'axios';
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom';
-import { BASE_URL } from '../utils/constants';
-import { removeUser } from "../utils/userSlice"
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { BASE_URL } from "../utils/constants";
+import { removeUser } from "../utils/userSlice";
+import Login from "./Login";
 
-
-const navbar = () => {
-  const user = useSelector((store)=>store.user);
-  const navigate=useNavigate();
-  const dispatch=useDispatch();
-  const handleLogout=async()=>{
+const Navbar = () => {
+  const user = useSelector((store) => store.user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const handleLogout = async () => {
     try {
-      await axios.get(BASE_URL+"/logout",{withCredentials:true});
-      dispatch(removeUser())
-      navigate("/login")
-     
-      
+      await axios.get(BASE_URL + "/logout", { withCredentials: true });
+      dispatch(removeUser());
+      navigate("/login");
     } catch (err) {
-      console.log(err.message)
+      console.log(err.message);
     }
-  }
+  };
+  // if(!user) return navigate("/login");
+
   return (
-<div className="navbar bg-base-300 shadow-sm px-5">
-      {/* Logo */}
-      <div className="flex-1">
-        <Link to="/" className="btn btn-ghost text-2xl font-bold">DevTinder</Link>
-      </div>
-
-      {/* Right Section */}
+    <header className="site-nav">
+      <Link to="/" className="brand">
+        <span className="brand-mark">&lt;/&gt;</span>DevTinder
+      </Link>
       {user && (
-        <div className="flex items-center">
-          <div className="dropdown dropdown-end">
-            {/* Dropdown Button */}
-            <div
-              tabIndex={0}
-              role="button"
-              className="flex items-center gap-6 cursor-pointer"
-            >
-              <p className="font-medium text-lg">
-                Hey, <span className="font-bold">{user.firstName}</span>
-              </p>
-
-              <div className="avatar">
-                <div className="w-12 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                  <img
-                    src={user.photoUrl}
-                    alt="Profile"
-                  />
-                </div>
-              </div>
+        <>
+          <nav className="nav-links">
+            <Link className="nav-link" to="/">
+              Discover
+            </Link>
+            <Link className="nav-link" to="/connections">
+              Connections
+            </Link>
+            <Link className="nav-link" to="/requests">
+              Requests
+            </Link>
+            <Link className="nav-link" to="/profile">
+              Profile
+            </Link>
+          </nav>
+          <details className="user-menu">
+            <summary>
+              <span className="nav-user-name">Hey, {user.firstName}</span>
+              {user.photoUrl ? (
+                <img className="avatar" src={user.photoUrl} alt="Profile" />
+              ) : (
+                <span className="avatar avatar-fallback">
+                  {user.firstName?.[0]}
+                </span>
+              )}
+            </summary>
+            <div className="menu-panel">
+              <Link to="/profile">Profile</Link>
+              <Link to="/connections">Connections</Link>
+              <Link to="/requests">Requests</Link>
+              <button onClick={handleLogout}>Log out</button>
             </div>
-
-            {/* Dropdown Menu */}
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] w-52 rounded-box bg-base-100 p-2 shadow"
-            >
-              <li>
-                <Link  to="/profile">
-                Profile
-              </Link>
-              </li>
-               <li>
-                <Link to={"/connections"}>Connections</Link>
-              </li>
-               <li>
-                <Link to={"/requests"}>Requests</Link>
-              </li>
-              
-
-             
-             
-
-              <li>
-                <a onClick={handleLogout}> Logout</a>
-              </li>
-            </ul>
-          </div>
-        </div>
+          </details>
+        </>
       )}
-    </div>
-  )
-}
-
-export default navbar
+    </header>
+  );
+};
+export default Navbar;
