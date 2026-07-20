@@ -92,7 +92,7 @@ Backend-
     - git pull in ubuntu server
     - npm run build
     again deployed
-    - sudo scp -r  dis t/* /var/www/html/
+    - sudo scp -r  dist/* /var/www/html/
 
 # Adding custom domain
 - Purchase domain name from _
