@@ -3,9 +3,11 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BASE_URL } from "../utils/constants";
 import { addConnection } from "../utils/connectionSlice";
+import { Link, useNavigate } from "react-router-dom";
 
 const Connections = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const connection = useSelector((store) => store.connection);
   const fetchConnections = async () => {
     try {
@@ -58,7 +60,9 @@ const Connections = () => {
                 </p>
                 <p>{conn.about}</p>
               </div>
-              <span className="muted">›</span>
+              <Link to={"/chat/"+conn._id}>
+              <button className="chat">Chat</button>
+              </Link>
             </article>
           ))}
         </div>

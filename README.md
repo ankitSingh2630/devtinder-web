@@ -100,3 +100,7 @@ Backend-
 - change the name server & point it to cloudflare 
 - add DNS Record 
 Enable SSL for website 
+
+# Real Time chat using WebSockect (Socket.io)
+- Build the UI for the chat window on /chat/targetUserId
+- Setup Socket.io in backend

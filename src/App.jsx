@@ -6,6 +6,7 @@ import Body from "./Components/Body"
 import Feed from "./Components/Feed"
 import Connections from "./Components/Connections"
 import Requests from "./Components/Requests"
+import Chat from "./Components/Chat"
 
 
 function App() {
@@ -19,10 +20,11 @@ function App() {
          <Route path="/login" element={<Login />} />
          {/* Protected Routes */}
         <Route path="/" element={<Body/>} >
-          <Route path="/" element={<Feed/>} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/connections" element={<Connections/>}/>
-          <Route path="/requests" element={<Requests/>}/>
+          <Route index element={<Feed />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="connections" element={<Connections/>}/>
+          <Route path="requests" element={<Requests/>}/>
+          <Route path="chat/:targetUserId" element={<Chat/>}/>
 
         </Route>
 
