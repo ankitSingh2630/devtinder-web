@@ -37,7 +37,7 @@ const Login = () => {
       dispatch(addUser(res.data.data));
       navigate("/profile");
     } catch (err) {
-      setError(err?.response?.data || "Something went wrong");
+      setError(err?.response?.data?.message || "Something went wrong");
     }
   };
   return (
