@@ -51,25 +51,26 @@ Body
 - inSTALL Node 
 - git clone 
 Frontend -
-    - npm install 
-    - npm run build
+    - npm install *
+    - npm run build*
     - sudo apt update
     - sudo apt install nginx
     - sudo systemctl start nginx
     - sudo systemctl enable nginx
     - copy code from dist(build folder) to /var/www/html/
-    - sudo scp -r  /dist/* /var/www/html/
+    - sudo scp -r  /dist/* /var/www/html/*
 
 Backend-
-    - npm install
+    - npm install*
     - npm install pm2 -g
     - pm2 start npm --start
     or
     - pm2 start npm --name "devtinder-backend" -- start
     
-    - pm2 logs
-    - pm2 list , pm2 flush <name> 
+    - pm2 logs*
+    - pm2 list , pm2 flush <name> *
     - pm2 stop <name>, pm2 delete <name>
+    -pm2 restart prijectName*
 # Nginx configuration 
     config ngnix - proxy pass 3000 == /api
     -sudo nano /etc/nginx/sites-available/default
